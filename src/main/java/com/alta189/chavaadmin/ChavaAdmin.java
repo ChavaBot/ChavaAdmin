@@ -8,6 +8,9 @@ import java.util.List;
 import com.alta189.chavabot.ChavaManager;
 import com.alta189.chavabot.events.Order;
 import com.alta189.chavabot.events.botevents.PrivateMessageEvent;
+import com.alta189.chavabot.events.botevents.SendActionEvent;
+import com.alta189.chavabot.events.botevents.SendMessageEvent;
+import com.alta189.chavabot.events.botevents.SendNoticeEvent;
 import com.alta189.chavabot.events.channelevents.MessageEvent;
 import com.alta189.chavabot.plugins.java.JavaPlugin;
 import com.alta189.chavabot.util.SettingsHandler;
@@ -25,17 +28,35 @@ public class ChavaAdmin extends JavaPlugin {
 			ChavaAdmin.settings.load();
 			ChavaAdmin.logChan = ChavaAdmin.settings.getPropertyString("bot-log-channel", null);
 		} catch (IOException e) {
-			this.getPluginLoader().disablePlugin(this);
+			getPluginLoader().disablePlugin(this);
 			e.printStackTrace();
 			return;
 		}
 		PrivateMessageEvent.register(new PrivateMsgListener(), Order.Default, this);
 		MessageEvent.register(new MsgListener(), Order.Default, this);
+		SendMessageEvent.register(new SendMsgListener(this), Order.Latest, this);
+		SendActionEvent.register(new SendActionListener(this), Order.Latest, this);
+		SendNoticeEvent.register(new SendNoticeListener(this), Order.Latest, this);
+		
+		if (ChavaAdmin.settings.checkProperty("muted-channels")) {
+			String chans = ChavaAdmin.settings.getPropertyString("muted-channels", null);
+			if (chans != null) {
+				for (String chan : chans.split(",")) {
+					channels.add(chan);
+				}
+			}
+		}
 	}
 
 	@Override
 	public void onDisable() {
 		System.out.println("ChavaAdmin disabled");
+		StringBuilder chans = new StringBuilder();
+		for (String chan : channels) {
+			chans.append(chan).append(",");
+		}
+		ChavaAdmin.settings.changeProperty("muted-channels", chans.toString().substring(0, chans.toString().length() - 2));
+		ChavaAdmin.settings = null;
 	}
 
 	public static SettingsHandler getSettings() {
