@@ -37,7 +37,7 @@ public class ChavaAdmin extends JavaPlugin {
 		SendMessageEvent.register(new SendMsgListener(this), Order.Latest, this);
 		SendActionEvent.register(new SendActionListener(this), Order.Latest, this);
 		SendNoticeEvent.register(new SendNoticeListener(this), Order.Latest, this);
-		
+
 		if (ChavaAdmin.settings.checkProperty("muted-channels")) {
 			String chans = ChavaAdmin.settings.getPropertyString("muted-channels", null);
 			if (chans != null) {
@@ -62,11 +62,11 @@ public class ChavaAdmin extends JavaPlugin {
 	public static SettingsHandler getSettings() {
 		return settings;
 	}
-	
+
 	public static String getLogChannel() {
 		return logChan;
 	}
-	
+
 	public static void log(String event) {
 		if (logChan != null) {
 			ChavaManager.getInstance().getChavaBot().sendMessage(logChan, event);

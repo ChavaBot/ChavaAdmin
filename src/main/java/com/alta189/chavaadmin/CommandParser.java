@@ -10,9 +10,9 @@ import com.alta189.chavabot.ChavaManager;
 import com.alta189.chavaperms.ChavaPerms;
 
 public class CommandParser {
-	
+
 	private static ChavaAdmin core;
-	
+
 	public CommandParser(ChavaAdmin core) {
 		CommandParser.core = core;
 	}
