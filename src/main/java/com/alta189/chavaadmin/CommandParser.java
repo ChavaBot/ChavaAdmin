@@ -134,6 +134,8 @@ public class CommandParser {
 					}
 				}
 			}
+		} else if (cmd.equalsIgnoreCase("")) {
+			
 		}
 	}
 }
