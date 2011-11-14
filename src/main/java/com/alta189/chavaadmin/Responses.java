@@ -7,4 +7,10 @@ public class Responses {
 	public final static String PART_CHANNEL = "Parting channel %chan%";
 	public final static String MUTE_CHANNEL = "I am now muted in %chan%";
 	
+	public final static String LOG_JOIN = "%sender% has instructed me to join %chan%";
+	public final static String LOG_PART = "%sender% has instructed me to part %chan%";
+	public final static String LOG_DISCONNECT = "%sender% has instructed me to disconnect";
+	public final static String LOG_MUTE = "%sender% has muted me in %chan%";
+	public final static String LOG_UNMUTE = "%sender% has unmuted me in %chan%";
+	
 }

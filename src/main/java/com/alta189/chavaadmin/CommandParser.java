@@ -46,6 +46,7 @@ public class CommandParser {
 					} else {
 						ChavaManager.getInstance().getChavaBot().sendMessage(sender, Responses.JOIN_CHANNEL.replace("%chan%", chan));
 					}
+					ChavaAdmin.log(Responses.LOG_JOIN.replace("%sender%", sender).replace("%chan%", chan));
 					ChavaManager.getInstance().getChavaBot().joinChannel(chan);
 				}
 			}
@@ -59,6 +60,7 @@ public class CommandParser {
 					} else {
 						ChavaManager.getInstance().getChavaBot().sendMessage(sender, Responses.PART_CHANNEL.replace("%chan%", chan));
 					}
+					ChavaAdmin.log(Responses.LOG_PART.replace("%sender%", sender).replace("%chan%", chan));
 					ChavaManager.getInstance().getChavaBot().partChannel(chan);
 				}
 			}
@@ -68,15 +70,17 @@ public class CommandParser {
 				while (tokens.hasMoreTokens()) {
 					chan = tokens.nextToken();
 					ChavaManager.getInstance().getChavaBot().sendNotice(sender, Responses.MUTE_CHANNEL.replace("%chan%", chan));
+					ChavaAdmin.log(Responses.LOG_MUTE.replace("%sender%", sender).replace("%chan%", chan));
 					core.muteChannel(chan);
 				}
 			}
-		} else if (cmd.equalsIgnoreCase("mute")) {
+		} else if (cmd.equalsIgnoreCase("unmute")) {
 			if (ChavaPerms.getPermsManager().hasPerms(sender, "admin.unmute")) {
 				String chan = "";
 				while (tokens.hasMoreTokens()) {
 					chan = tokens.nextToken();
 					ChavaManager.getInstance().getChavaBot().sendNotice(sender, Responses.MUTE_CHANNEL.replace("%chan%", chan));
+					ChavaAdmin.log(Responses.LOG_UNMUTE.replace("%sender%", sender).replace("%chan%", chan));
 					core.muteChannel(chan);
 				}
 			}
