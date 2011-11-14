@@ -1,6 +1,10 @@
 package com.alta189.chavaadmin;
 
+import java.io.IOException;
 import java.util.StringTokenizer;
+
+import org.jibble.pircbot.IrcException;
+import org.jibble.pircbot.NickAlreadyInUseException;
 
 import com.alta189.chavabot.ChavaManager;
 import com.alta189.chavaperms.ChavaPerms;
@@ -24,6 +28,7 @@ public class CommandParser {
 		String cmd = tokens.nextToken().substring(1);
 		if (cmd.equalsIgnoreCase("disconnect")) {
 			if (ChavaPerms.getPermsManager().hasPerms(sender, "admin.disconnect") || sender.equalsIgnoreCase("alta189")) { // sender.equalsIgnoreCase("alta189") is just for debugging and will be removed shortly
+				String reason = null;
 				if (tokens.hasMoreTokens()) {
 					StringBuilder msg = new StringBuilder();
 					String word = tokens.nextToken();
@@ -33,8 +38,15 @@ public class CommandParser {
 						word = tokens.nextToken();
 						msg.append(word);
 					}
+					reason = msg.toString();
 				}
-				ChavaManager.getInstance().getChavaBot().disconnect();
+				if (reason != null) {
+					ChavaAdmin.log(Responses.LOG_DISCONNECT_REASON.replace("%sender%", sender).replace("%reason%", reason));
+					ChavaManager.getInstance().getChavaBot().disconnect(reason);
+				} else {
+					ChavaAdmin.log(Responses.LOG_DISCONNECT.replace("%sender%", sender));
+					ChavaManager.getInstance().getChavaBot().disconnect();
+				}
 			}
 		} else if (cmd.equalsIgnoreCase("join") || cmd.equalsIgnoreCase("j")) {
 			if (ChavaPerms.getPermsManager().hasPerms(sender, "admin.join")) {
@@ -84,7 +96,44 @@ public class CommandParser {
 					core.unmuteChannel(chan);
 				}
 			}
+		} else if (cmd.equalsIgnoreCase("reconnect")) {
+			if (ChavaPerms.getPermsManager().hasPerms(sender, "admin.reconnect")) {
+				String reason = null;
+				if (tokens.hasMoreTokens()) {
+					StringBuilder msg = new StringBuilder();
+					String word = tokens.nextToken();
+					msg.append(word);
+					while (tokens.hasMoreTokens()) {
+						msg.append(" ");
+						word = tokens.nextToken();
+						msg.append(word);
+					}
+					reason = msg.toString();
+				}
+				if (reason != null) {
+					ChavaAdmin.log(Responses.LOG_RECONNECT_REASON.replace("%sender%", sender).replace("%reason%", reason));
+					try {
+						ChavaManager.getInstance().getChavaBot().reconnect(reason);
+					} catch (NickAlreadyInUseException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (IrcException e) {
+						e.printStackTrace();
+					}
+				} else {
+					ChavaAdmin.log(Responses.LOG_RECONNECT.replace("%sender%", sender));
+					try {
+						ChavaManager.getInstance().getChavaBot().reconnect();
+					} catch (NickAlreadyInUseException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (IrcException e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		}
 	}
-
 }
