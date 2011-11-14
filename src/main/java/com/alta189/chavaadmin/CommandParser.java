@@ -81,7 +81,7 @@ public class CommandParser {
 					chan = tokens.nextToken();
 					ChavaManager.getInstance().getChavaBot().sendNotice(sender, Responses.MUTE_CHANNEL.replace("%chan%", chan));
 					ChavaAdmin.log(Responses.LOG_UNMUTE.replace("%sender%", sender).replace("%chan%", chan));
-					core.muteChannel(chan);
+					core.unmuteChannel(chan);
 				}
 			}
 		}
