@@ -134,8 +134,24 @@ public class CommandParser {
 					}
 				}
 			}
-		} else if (cmd.equalsIgnoreCase("")) {
-			
+		} else if (cmd.equalsIgnoreCase("echo") || cmd.equalsIgnoreCase("e")) {
+			if (ChavaPerms.getPermsManager().hasPerms(sender, "admin.echo")) {
+				String target = tokens.nextToken();
+				String msg = message.replaceFirst("." + cmd + " " + target + " ", "");
+				ChavaManager.getInstance().getChavaBot().sendMessage(target, msg);
+			}
+		} else if (cmd.equalsIgnoreCase("action") || cmd.equalsIgnoreCase("a")) {
+			if (ChavaPerms.getPermsManager().hasPerms(sender, "admin.action")) {
+				String target = tokens.nextToken();
+				String action = message.replaceFirst("." + cmd + " " + target + " ", "");
+				ChavaManager.getInstance().getChavaBot().sendAction(target, action);
+			}
+		} else if (cmd.equalsIgnoreCase("notice") || cmd.equalsIgnoreCase("n")) {
+			if (ChavaPerms.getPermsManager().hasPerms(sender, "admin.notice")) {
+				String target = tokens.nextToken();
+				String notice = message.replaceFirst("." + cmd + " " + target + " ", "");
+				ChavaManager.getInstance().getChavaBot().sendNotice(target, notice);
+			}
 		}
 	}
 }
