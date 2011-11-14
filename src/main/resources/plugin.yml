@@ -1,0 +1,7 @@
+name: ChavaAdmin
+version: ${build.number}
+description: ChavaAdmin is a set of general admin commands
+author: alta189
+
+main: com.alta189.chavaadmin.ChavaAdmin
+depends: [ChavaPerms]
