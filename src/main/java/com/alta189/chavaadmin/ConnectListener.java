@@ -16,6 +16,10 @@ public class ConnectListener implements Listener<ConnectEvent> {
 			}
 
 		}
+		String logChan = ChavaAdmin.getLogChannel();
+		if (logChan != null) {
+			ChavaManager.getInstance().getChavaBot().joinChannel(logChan);
+		}
 	}
 
 }
