@@ -7,7 +7,7 @@ import com.alta189.chavabot.events.ircevents.ConnectEvent;
 public class ConnectListener implements Listener<ConnectEvent> {
 
 	public void onEvent(ConnectEvent event) {
-		if (ChavaAdmin.getSettings().getPropertyBoolean("znc-auth-enabled", false)) {
+		if (ChavaAdmin.getSettings().checkProperty("znc-auth-enabled") && ChavaAdmin.getSettings().getPropertyBoolean("znc-auth-enabled", false)) {
 			String user = ChavaAdmin.getSettings().getPropertyString("znc-user", null);
 			String pass = ChavaAdmin.getSettings().getPropertyString("znc-pass", null);
 
