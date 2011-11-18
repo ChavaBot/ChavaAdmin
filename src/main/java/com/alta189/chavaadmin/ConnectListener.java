@@ -14,8 +14,8 @@ public class ConnectListener implements Listener<ConnectEvent> {
 			if (user != null && pass != null) {
 				ChavaManager.getInstance().getChavaBot().sendRawLine(new StringBuilder().append("PASS ").append(user).append(":").append(pass).toString());
 			}
-
 		}
+		
 		String logChan = ChavaAdmin.getLogChannel();
 		if (logChan != null) {
 			ChavaManager.getInstance().getChavaBot().joinChannel(logChan);

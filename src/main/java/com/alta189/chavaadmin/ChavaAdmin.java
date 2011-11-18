@@ -12,6 +12,7 @@ import com.alta189.chavabot.events.botevents.SendActionEvent;
 import com.alta189.chavabot.events.botevents.SendMessageEvent;
 import com.alta189.chavabot.events.botevents.SendNoticeEvent;
 import com.alta189.chavabot.events.channelevents.MessageEvent;
+import com.alta189.chavabot.events.ircevents.ConnectEvent;
 import com.alta189.chavabot.plugins.java.JavaPlugin;
 import com.alta189.chavabot.util.SettingsHandler;
 
@@ -33,6 +34,7 @@ public class ChavaAdmin extends JavaPlugin {
 			e.printStackTrace();
 			return;
 		}
+		ConnectEvent.register(new ConnectListener(), Order.Default, this);
 		PrivateMessageEvent.register(new PrivateMsgListener(), Order.Default, this);
 		MessageEvent.register(new MsgListener(), Order.Default, this);
 		SendMessageEvent.register(new SendMsgListener(this), Order.Latest, this);
