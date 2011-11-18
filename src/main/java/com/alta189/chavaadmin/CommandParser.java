@@ -61,7 +61,10 @@ public class CommandParser {
 					ChavaAdmin.log(Responses.LOG_JOIN.replace("%sender%", sender).replace("%chan%", chan));
 					ChavaManager.getInstance().getChavaBot().joinChannel(chan);
 				}
+			} else {
+				System.out.print("You do not have perms");
 			}
+			
 		} else if (cmd.equalsIgnoreCase("part") || cmd.equalsIgnoreCase("p")) {
 			if (ChavaPerms.getPermsManager().hasPerms(sender, "admin.part")) {
 				String chan = "";
