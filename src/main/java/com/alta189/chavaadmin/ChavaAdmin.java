@@ -56,6 +56,7 @@ public class ChavaAdmin extends JavaPlugin {
 		for (String chan : channels) {
 			chans.append(chan).append(",");
 		}
+		if (chans.length() > 1)
 		ChavaAdmin.settings.changeProperty("muted-channels", chans.toString().substring(0, chans.toString().length() - 2));
 		ChavaAdmin.settings = null;
 	}
