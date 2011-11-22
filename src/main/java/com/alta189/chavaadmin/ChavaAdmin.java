@@ -26,7 +26,7 @@ public class ChavaAdmin extends JavaPlugin {
 		System.out.println("ChavaAdmin enabled");
 		try {
 			if (!getDataFolder().exists()) getDataFolder().mkdir();
-			ChavaAdmin.settings = new SettingsHandler(ChavaAdmin.class.getResource("").openStream(), new File(this.getDataFolder(), "settings.properties"));
+			ChavaAdmin.settings = new SettingsHandler(ChavaAdmin.class.getResource("settings").openStream(), new File(this.getDataFolder(), "settings.properties"));
 			ChavaAdmin.settings.load();
 			ChavaAdmin.logChan = ChavaAdmin.settings.getPropertyString("bot-log-channel", null);
 		} catch (IOException e) {
