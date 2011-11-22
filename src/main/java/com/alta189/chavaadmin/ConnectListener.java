@@ -1,5 +1,7 @@
 package com.alta189.chavaadmin;
 
+import java.util.logging.Level;
+
 import com.alta189.chavabot.ChavaManager;
 import com.alta189.chavabot.events.Listener;
 import com.alta189.chavabot.events.ircevents.ConnectEvent;
@@ -13,10 +15,9 @@ public class ConnectListener implements Listener<ConnectEvent> {
 
 			if (user != null && pass != null) {
 				ChavaManager.getInstance().getChavaBot().sendRawLine(new StringBuilder().append("PASS ").append(user).append(":").append(pass).toString());
-				System.out.println(new StringBuilder().append("PASS ").append(user).append(":").append(pass).toString());
+				ChavaManager.getInstance().getLogger().log(Level.INFO, new StringBuilder().append("PASS ").append(user).append(":").append(pass).toString());
 			}
 		}
-		System.out.println("Nope");
 		
 		String logChan = ChavaAdmin.getLogChannel();
 		if (logChan != null) {
