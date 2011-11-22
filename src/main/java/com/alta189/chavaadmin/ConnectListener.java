@@ -16,6 +16,7 @@ public class ConnectListener implements Listener<ConnectEvent> {
 				System.out.println(new StringBuilder().append("PASS ").append(user).append(":").append(pass).toString());
 			}
 		}
+		System.out.println("Nope");
 		
 		String logChan = ChavaAdmin.getLogChannel();
 		if (logChan != null) {
