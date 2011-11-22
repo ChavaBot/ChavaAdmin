@@ -12,7 +12,8 @@ public class ConnectListener implements Listener<ConnectEvent> {
 			String pass = ChavaAdmin.getSettings().getPropertyString("znc-pass", null);
 
 			if (user != null && pass != null) {
-				ChavaManager.getInstance().getChavaBot().sendRawLine(new StringBuilder().append("PASS ").append(user).append(":").append(pass).toString());
+				ChavaManager.getInstance().getChavaBot().sendRawLineViaQueue(new StringBuilder().append("PASS ").append(user).append(":").append(pass).toString());
+				System.out.println(new StringBuilder().append("PASS ").append(user).append(":").append(pass).toString());
 			}
 		}
 		
