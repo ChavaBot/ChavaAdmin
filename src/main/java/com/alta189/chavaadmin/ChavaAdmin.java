@@ -78,15 +78,15 @@ public class ChavaAdmin extends JavaPlugin {
 	}
 
 	public boolean isMuted(String channel) {
-		return channels.contains(channel.replaceAll("#", "@"));
+		return channels.contains(channel.toLowerCase());
 	}
 
 	public void muteChannel(String channel) {
-		channels.add(channel.replaceAll("#", "@"));
+		channels.add(channel.toLowerCase());
 	}
 
 	public void unmuteChannel(String channel) {
-		channels.remove(channel.replaceAll("#", "@"));
+		channels.remove(channel.toLowerCase());
 	}
 
 }
