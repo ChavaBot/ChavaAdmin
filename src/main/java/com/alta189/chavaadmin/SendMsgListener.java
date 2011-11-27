@@ -14,6 +14,7 @@ public class SendMsgListener implements Listener<SendMessageEvent> {
 	public void onEvent(SendMessageEvent event) {
 		if (core.isMuted(event.getTarget())) {
 			event.setCancelled(true);
+			ChavaAdmin.log("muted in " + event.getTarget());
 		} else {
 			ChavaAdmin.log("Not muted in " + event.getTarget());
 		}
