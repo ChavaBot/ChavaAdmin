@@ -12,8 +12,8 @@ import com.alta189.chavaperms.ChavaPerms;
 public class CommandParser {
 
 	private static ChavaAdmin core;
-
-	public CommandParser(ChavaAdmin core) {
+	
+	public static void setCore(ChavaAdmin core) {
 		CommandParser.core = core;
 	}
 

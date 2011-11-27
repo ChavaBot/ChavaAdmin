@@ -24,6 +24,7 @@ public class ChavaAdmin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		System.out.println("ChavaAdmin enabled");
+		CommandParser.setCore(this);
 		try {
 			if (!getDataFolder().exists()) getDataFolder().mkdir();
 			ChavaAdmin.settings = new SettingsHandler(ChavaAdmin.class.getResource("settings").openStream(), new File(this.getDataFolder(), "settings.properties"));
@@ -59,7 +60,7 @@ public class ChavaAdmin extends JavaPlugin {
 			chans.append(chan).append(",");
 		}
 		if (chans.length() > 1)
-		ChavaAdmin.settings.changeProperty("muted-channels", chans.toString().substring(0, chans.toString().length() - 2));
+		ChavaAdmin.settings.changeProperty("muted-channels", chans.toString().substring(0, chans.toString().length() - 1));
 		ChavaAdmin.settings = null;
 	}
 
