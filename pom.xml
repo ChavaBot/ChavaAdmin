@@ -23,6 +23,7 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+	
 	<build>
 		<defaultGoal>clean package</defaultGoal>
 		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
