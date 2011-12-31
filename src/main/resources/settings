@@ -1,7 +1,3 @@
-znc-auth-enabled: false
-znc-user: ChavaBot
-znc-pass: super-secret-pass
-
 muted-channels: #help
 
 bot-log-channel: #MyChavaBotChannel

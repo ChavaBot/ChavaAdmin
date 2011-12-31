@@ -6,23 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alta189.chavabot.ChavaManager;
-import com.alta189.chavabot.events.Order;
-import com.alta189.chavabot.events.botevents.PrivateMessageEvent;
-import com.alta189.chavabot.events.botevents.SendActionEvent;
-import com.alta189.chavabot.events.botevents.SendMessageEvent;
-import com.alta189.chavabot.events.botevents.SendNoticeEvent;
-import com.alta189.chavabot.events.channelevents.MessageEvent;
-import com.alta189.chavabot.events.ircevents.ConnectEvent;
-import com.alta189.chavabot.plugins.java.JavaPlugin;
+import com.alta189.chavabot.plugin.CommonPlugin;
 import com.alta189.chavabot.util.SettingsHandler;
 
-public class ChavaAdmin extends JavaPlugin {
+public class ChavaAdmin extends CommonPlugin {
+	private static ChavaAdmin instance;
 	private static SettingsHandler settings;
 	private static String logChan = null;
 	private List<String> channels = new ArrayList<String>();
 
 	@Override
 	public void onEnable() {
+		ChavaAdmin.instance = this;
 		System.out.println("ChavaAdmin enabled");
 		CommandParser.setCore(this);
 		try {
@@ -35,13 +30,9 @@ public class ChavaAdmin extends JavaPlugin {
 			e.printStackTrace();
 			return;
 		}
-		ConnectEvent.register(new ConnectListener(), Order.Default, this);
-		PrivateMessageEvent.register(new PrivateMsgListener(), Order.Default, this);
-		MessageEvent.register(new MsgListener(), Order.Default, this);
-		SendMessageEvent.register(new SendMsgListener(this), Order.Latest, this);
-		SendActionEvent.register(new SendActionListener(this), Order.Latest, this);
-		SendNoticeEvent.register(new SendNoticeListener(this), Order.Latest, this);
-
+		
+		ChavaManager.getListenerManager().addListener(new AdminListener());
+		ChavaManager.getEventManager().registerEvents(new BotListener(), this);
 		if (ChavaAdmin.settings.checkProperty("muted-channels")) {
 			String chans = ChavaAdmin.settings.getPropertyString("muted-channels", null);
 			if (chans != null) {
@@ -88,6 +79,10 @@ public class ChavaAdmin extends JavaPlugin {
 
 	public void unmuteChannel(String channel) {
 		channels.remove(channel.toLowerCase());
+	}
+	
+	public static ChavaAdmin getInstance() {
+		return instance;
 	}
 
 }

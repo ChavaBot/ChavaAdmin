@@ -3,8 +3,8 @@ package com.alta189.chavaadmin;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-import org.jibble.pircbot.IrcException;
-import org.jibble.pircbot.NickAlreadyInUseException;
+import org.pircbotx.exception.IrcException;
+import org.pircbotx.exception.NickAlreadyInUseException;
 
 import com.alta189.chavabot.ChavaManager;
 import com.alta189.chavaperms.ChavaPerms;
@@ -76,7 +76,7 @@ public class CommandParser {
 						ChavaManager.getInstance().getChavaBot().sendMessage(sender, Responses.PART_CHANNEL.replace("%chan%", chan));
 					}
 					ChavaAdmin.log(Responses.LOG_PART.replace("%sender%", sender).replace("%chan%", chan));
-					ChavaManager.getInstance().getChavaBot().partChannel(chan);
+					ChavaManager.getInstance().getChavaBot().partChannel(ChavaManager.getInstance().getChavaBot().getChannel(chan));
 				}
 			}
 		} else if (cmd.equalsIgnoreCase("mute")) {
